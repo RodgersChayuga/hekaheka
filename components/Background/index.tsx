@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { BackgroundConfig } from "@/types/background";
+import Header from "../Header";
 
 interface BackgroundProps {
     children: React.ReactNode;
@@ -143,8 +144,9 @@ const Background = ({ children, config }: BackgroundProps) => {
 
             {/* Scrollable Content */}
             <div className="relative z-30 h-screen flex flex-col">
-                <main className="flex-1 overflow-y-auto ">
-                    <div className="container mx-auto py-36 mt-8">
+                <main className="flex-1 overflow-y-auto">
+                    <Header />
+                    <div className="container mx-auto ">
                         {children}
                     </div>
                 </main>

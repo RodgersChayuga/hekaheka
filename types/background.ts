@@ -62,6 +62,6 @@ export interface BackgroundConfig {
             zIndex?: number;
             className?: string;
             image: string;
-        };
     };
+};
 }
