@@ -1,0 +1,65 @@
+[
+  {
+    "network": {
+      "name": "baseSepolia",
+      "chainId": "84532"
+    },
+    "contracts": [
+      {
+        "name": "ComicNFT",
+        "address": "0x42439663A675a6F2F24d7251FabdbC3020374697",
+        "transactionHash": "0xca84b7de6ff6ac75aeaf5d974cfbe1bf495ca7b18f4b6b1a7a5405ab6b86de01",
+        "deployedAt": "2025-05-10T21:21:46.614Z"
+      },
+      {
+        "name": "ComicMarketplace",
+        "address": "0x1c85e4cAd409da41754689844FAeD86Cf234f50e",
+        "transactionHash": "0x0a2ce51d03ccf14903369864753821772384191df1a361e4913e1e3f382b74ce",
+        "deployedAt": "2025-05-10T21:21:55.141Z"
+      }
+    ],
+    "deployedAt": "2025-05-10T21:21:36.738Z"
+  },
+  {
+    "network": {
+      "name": "baseSepolia",
+      "chainId": "84532"
+    },
+    "contracts": [
+      {
+        "name": "ComicNFT",
+        "address": "0xd2367F315623146459d64a27B1EA9f04bC91Bebf",
+        "transactionHash": "0x40a4db97db421829ff6cf67b7ad0e501f9709db182865fac228ed4857519d279",
+        "deployedAt": "2025-05-11T12:03:25.579Z"
+      },
+      {
+        "name": "ComicMarketplace",
+        "address": "0x48C3EcF3aB7F0D7aCCDD2c4408B4a4691F2E61AE",
+        "transactionHash": "0xa499b87649371827fb9185a1242736cd91f621c8433f6ae744b96c9526e2e451",
+        "deployedAt": "2025-05-11T12:03:29.808Z"
+      }
+    ],
+    "deployedAt": "2025-05-11T12:03:20.898Z"
+  },
+  {
+    "network": {
+      "name": "base",
+      "chainId": "8453"
+    },
+    "contracts": [
+      {
+        "name": "ComicNFT",
+        "address": "0xe7B3b09cd1928D03C0B0AFfc0B9ec6BA06f6106D",
+        "transactionHash": "0x47a6b8c66862ede52055b7eccca1834b21faae8cc6bf36977ceb2c3c29b88d3a",
+        "deployedAt": "2025-05-17T06:41:42.940Z"
+      },
+      {
+        "name": "ComicMarketplace",
+        "address": "0x42439663A675a6F2F24d7251FabdbC3020374697",
+        "transactionHash": "0xdd525c581d2cdd96259e295f04c4897cfdaf6aa94271b8594082fdf9b211ee8c",
+        "deployedAt": "2025-05-17T06:41:48.112Z"
+      }
+    ],
+    "deployedAt": "2025-05-17T06:41:37.577Z"
+  }
+]

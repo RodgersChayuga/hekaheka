@@ -6,22 +6,38 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compile:contracts": "npx hardhat compile",
+    "deploy:contracts": "npx hardhat run scripts/deploy.ts",
+    "deploy:contracts:base": "npx hardhat run scripts/deploy.ts --network base",
+    "deploy:contracts:base-sepolia": "npx hardhat run scripts/deploy.ts --network base-sepolia",
+    "test:contracts": "hardhat test"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
+    "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.2"
+    "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@openzeppelin/contracts": "^5.3.0",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
-    "@eslint/eslintrc": "^3"
+    "ethers": "^6.14.1",
+    "hardhat": "^2.24.0",
+    "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
+    "tw-animate-css": "^1.3.0",
+    "typescript": "^5"
   }
 }
