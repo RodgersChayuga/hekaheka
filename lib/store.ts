@@ -5,8 +5,8 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 // Represents a page in the generated comic
 interface ComicPage {
-    imageUrl: string;
-    text: string;
+    imageBase64: string; // Base64-encoded canvas snapshot (after drawing)
+    text: string;        // Text used on that page
     character: string;
     userImageHash?: string;
 }
@@ -19,13 +19,17 @@ interface WalletState {
 }
 
 // Zustand global store structure
-interface Store {
+interface ZustandStore {
     // Wallet state
     wallet: WalletState | null;
 
     // User-defined story and characters
     story: string;
     characters: string[];
+
+    // Comic generation and creation
+    finalComicPages: ComicPage[];
+    setFinalComicPages: (pages: ComicPage[]) => void;
 
     // IPFS hash of uploaded storybook
     ipfsHash: string;
@@ -57,7 +61,7 @@ interface Store {
 }
 
 // Zustand store with persistence in localStorage
-export const useZustandStore = create<Store>()(
+export const useZustandStore = create<ZustandStore>()(
     persist(
         (set) => ({
             wallet: null,
@@ -66,6 +70,8 @@ export const useZustandStore = create<Store>()(
             ipfsHash: '',
             comicPages: [],
             characterImages: {},
+            finalComicPages: [],
+            setFinalComicPages: (pages) => set({ finalComicPages: pages }),
 
             // Merge new wallet values with existing or create new with defaults
             setWallet: (wallet) =>
@@ -103,6 +109,7 @@ export const useZustandStore = create<Store>()(
                     ipfsHash: '',
                     comicPages: [],
                     characterImages: {},
+                    finalComicPages: [],
                 }),
         }),
         {
@@ -117,6 +124,7 @@ export const useZustandStore = create<Store>()(
                 ipfsHash: state.ipfsHash,
                 comicPages: state.comicPages,
                 characterImages: state.characterImages,
+                finalComicPages: state.finalComicPages,
             }),
         }
     )

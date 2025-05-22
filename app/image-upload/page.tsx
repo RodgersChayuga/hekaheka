@@ -22,6 +22,60 @@ const ImageUpload = () => {
         }));
     };
 
+    // const HandleCreateComic = async () => {
+    //     console.log("🚀 Starting comic generation with the following inputs:");
+    //     console.log("🧙‍♂️ Characters:", characters);
+    //     console.log("📖 Story:", story);
+
+    //     if (!characters.every(c => characterFiles[c]?.length > 0)) {
+    //         toast.error("⚠️ Please upload at least one image per character before generating.");
+    //         return;
+    //     }
+
+    //     setIsLoading(true); // ✅ Start loading
+
+    //     try {
+    //         console.log("🖼️ Uploaded Files per Character:");
+    //         for (const character of characters) {
+    //             const files = characterFiles[character] || [];
+    //             console.log(`  - ${character}:`, files.map(f => f.name));
+
+    //             if (files.length > 0) {
+    //                 try {
+    //                     const base64 = await fileToBase64(files[0]); // Only using first file per character
+    //                     setCharacterImage(character, base64); // Save to Zustand
+    //                 } catch (err) {
+    //                     toast.error(`❌ Failed to convert image for ${character}`);
+    //                     console.error(err);
+    //                 }
+    //             }
+    //         }
+    //         toast.success("✅ All character images converted to base64 and saved!");
+    //         router.push("/comic-preview");
+    //     } catch (err) {
+    //         toast.error("⚠️ Error occurred during image conversion.");
+    //         console.error(err);
+    //     } finally {
+    //         setIsLoading(false); // ✅ End loading regardless of success/failure
+    //     }
+    // };
+
+    const generateComicPages = async (story: string, characters: string[]) => {
+        const response = await fetch("/api/generate-comic", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ story, characters }),
+        });
+
+        if (!response.ok) {
+            throw new Error("❌ Comic generation failed.");
+        }
+
+        const result = await response.json(); // Expected format: [{ text, character }, ...]
+        return result;
+    };
+
+
     const HandleCreateComic = async () => {
         console.log("🚀 Starting comic generation with the following inputs:");
         console.log("🧙‍♂️ Characters:", characters);
@@ -32,33 +86,49 @@ const ImageUpload = () => {
             return;
         }
 
-        setIsLoading(true); // ✅ Start loading
+        setIsLoading(true);
 
         try {
-            console.log("🖼️ Uploaded Files per Character:");
+            // 1. Convert and store character images
             for (const character of characters) {
                 const files = characterFiles[character] || [];
-                console.log(`  - ${character}:`, files.map(f => f.name));
-
                 if (files.length > 0) {
                     try {
-                        const base64 = await fileToBase64(files[0]); // Only using first file per character
-                        setCharacterImage(character, base64); // Save to Zustand
+                        const base64 = await fileToBase64(files[0]);
+                        setCharacterImage(character, base64);
                     } catch (err) {
                         toast.error(`❌ Failed to convert image for ${character}`);
                         console.error(err);
                     }
                 }
             }
-            toast.success("✅ All character images converted to base64 and saved!");
+
+            toast.success("✅ Character images saved!");
+
+            // 2. Call OpenAI API to generate comic pages
+            const generatedPages = await generateComicPages(story, characters); // [{ text, character }]
+            console.log("📝 Generated comic pages:", generatedPages);
+
+            // 3. Add imageBase64 from state to each page based on character
+            const { characterImages, setComicPages } = useZustandStore.getState();
+            const pagesWithImages = generatedPages.map((page: any) => ({
+                ...page,
+                imageBase64: characterImages[page.character] || "", // fallback if not found
+            }));
+
+            // 4. Save to Zustand store
+            setComicPages(pagesWithImages);
+
+            toast.success("🎉 Comic pages generated!");
             router.push("/comic-preview");
         } catch (err) {
-            toast.error("⚠️ Error occurred during image conversion.");
+            toast.error("⚠️ Error occurred during comic generation.");
             console.error(err);
         } finally {
-            setIsLoading(false); // ✅ End loading regardless of success/failure
+            setIsLoading(false);
         }
     };
+
 
 
     return (
