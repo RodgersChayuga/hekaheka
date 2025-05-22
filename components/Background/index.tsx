@@ -146,7 +146,7 @@ const Background = ({ children, config }: BackgroundProps) => {
             <div className="relative z-30 h-screen flex flex-col">
                 <main className="flex-1 overflow-y-auto">
                     <Header />
-                    <div className="container mx-auto ">
+                    <div className="container mx-auto mt-60">
                         {children}
                     </div>
                 </main>
